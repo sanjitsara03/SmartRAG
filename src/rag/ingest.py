@@ -4,8 +4,8 @@ from typing import List
 
 from langchain_community.document_loaders import DirectoryLoader, TextLoader, PyPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import Chroma
+from langchain_openai import OpenAIEmbeddings
 
 
 from src.rag.config.rag_settings import DocIngestionSettings
@@ -20,9 +20,11 @@ logger = logging.getLogger(__name__)
 settings = DocIngestionSettings()
 
 # Initialize embedding model
-logger.info("Loading HuggingFace embedding model...")
+logger.info("Loading OpenAI embedding model...")
 
-embed_model = HuggingFaceEmbeddings()
+embed_model = OpenAIEmbeddings(
+    model="text-embedding-3-small"  
+)
 
 
 def load_documents(docs_dir_path: str) -> List:
@@ -83,7 +85,6 @@ def build_vector_store():
         )
 
         
-        vectordb.persist()
         logger.info("Vector store build successfully.")
         return 0
 

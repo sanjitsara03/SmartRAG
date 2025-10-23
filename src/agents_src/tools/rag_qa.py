@@ -2,7 +2,7 @@ import logging
 from crewai.tools import tool
 
 from langchain_community.vectorstores import Chroma
-from langchain_huggingface import HuggingFaceEmbeddings
+from langchain_openai import OpenAIEmbeddings
 from langchain_groq import ChatGroq
 
 from src.agents_src.config.agent_settings import AgentSettings
@@ -12,7 +12,9 @@ logger = logging.getLogger(__name__)
 
 
 logger.info("Loading HuggingFace embedding model...")
-embed_model = HuggingFaceEmbeddings()
+embed_model =  OpenAIEmbeddings(
+    model="text-embedding-3-small"
+)
 
 
 @tool

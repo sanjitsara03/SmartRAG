@@ -1,6 +1,6 @@
 import sys
 import os
-# Add project root to sys.path BEFORE any imports
+
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
 
 import streamlit as st
@@ -39,7 +39,6 @@ if user_prompt:
     st.chat_message("user").markdown(user_prompt)
     st.session_state.chat_history.append({"role": "user", "content": user_prompt})
 
-    # Prepare payload for API
     payload = {"chat_history": st.session_state.chat_history}
     try:
         response = requests.post(settings.CHAT_ENDPOINT_URL, json=payload)

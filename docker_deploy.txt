@@ -1,0 +1,9 @@
+#Build docker image
+
+docker build -t smartrag:latest .
+
+#Start container
+
+Include GROQ and OpenAI API key below using -e
+docker run -p 8000:8000 -p 8501:8501 smartrag:latest
+
