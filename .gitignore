@@ -9,5 +9,4 @@ wheels/
 # Virtual environments
 .venv
 docs_vector_store/
-docs_dir/
 .env
