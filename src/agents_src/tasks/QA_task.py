@@ -12,17 +12,22 @@ class AnswerStruct(BaseModel):
 qa_task = Task(
     agent=qa_agent,
     name="Question Answering Task",
-    description="""
-    Address the user query "{user_query}" using a Retrieval-Augmented Generation (RAG) approach.
+    description = """
+    Address the user query "{user_query}" using a Retrieval-Augmented Generation (RAG) approach,
+    and only use the web search tool if no sufficient answer can be found from internal knowledge.
+
     chat_history: "{chat_history}"
-    
+
     Instructions:
-    - Retrieve relevant information from the document store or chat history.
-    - Focus on evidence that directly supports the question.
-    - Generate a concise, factually accurate response based on the retrieved context.
-    - If the answer cannot be derived from the documents or chat history, do not fabricate a response.
-      Instead, clearly state that the available knowledge sources do not contain the required information.
-    - Maintain transparency by including references, tool usage, and reasoning steps in the output.
+    - Begin by retrieving relevant information from the internal document store and chat history using the RAG tool.
+    - Focus on evidence that directly supports the question and generate a clear, factually accurate response.
+    - If the RAG retrieval does not return relevant information or the available context is insufficient:
+        → Use the web search tool to find additional, credible information online.
+        → Summarize and synthesize the findings into a factual, concise answer.
+    - Do not fabricate information if neither source yields enough evidence.
+      Instead, clearly state that the available sources do not contain the required information.
+    - Always indicate which source (RAG or Web Search) was used to generate the answer.
+    - Maintain transparency by including reasoning steps, tool usage, and references where applicable.
     """,
     expected_output="""
     A structured JSON object with the following fields:

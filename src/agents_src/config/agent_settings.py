@@ -10,6 +10,7 @@ class AgentSettings(BaseSettings):
     COLLECTION_NAME: str
     DOCUMENTS_DIR: str
     VECTOR_STORE_DIR: str
+    TAVILY_API_KEY: str
 
     class Config:
         env_file = ".env"
